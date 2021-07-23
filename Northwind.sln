@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31424.327
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.API", "Northwind\Northwind.API.csproj", "{D6AD4E12-866B-4E29-A97C-A114AC3D0FE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.API", "Northwind.API\Northwind.API.csproj", "{D6AD4E12-866B-4E29-A97C-A114AC3D0FE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Datastore", "ClassLibrary1\Northwind.Datastore.csproj", "{6C0CAE42-36B5-49D0-95CE-5DBE2F2B25C0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Datastore", "Northwind.Datastore\Northwind.Datastore.csproj", "{6C0CAE42-36B5-49D0-95CE-5DBE2F2B25C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Northwind.Models", "Northwind.Models\Northwind.Models.csproj", "{3D024A81-C249-426A-9D65-9BC81800AE6B}"
 EndProject

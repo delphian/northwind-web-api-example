@@ -197,7 +197,7 @@
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Northwind.Datastore.csproj">
+    <ProjectReference Include="..\Northwind.Datastore\Northwind.Datastore.csproj">
       <Project>{6c0cae42-36b5-49d0-95ce-5dbe2f2b25c0}</Project>
       <Name>Northwind.Datastore</Name>
     </ProjectReference>
