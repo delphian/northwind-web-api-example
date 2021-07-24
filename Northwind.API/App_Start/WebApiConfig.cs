@@ -17,8 +17,13 @@ namespace Northwind.API
             // Dependency injection.
             var container = new UnityContainer();
             var datastoreConfig = new DatastoreConfig();
+            var jwtManager = new JwtManager();
+
             datastoreConfig.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            // Register instances.
             container.RegisterInstance<IDatastoreConfig>(datastoreConfig);
+            container.RegisterInstance<IJwtManager>(jwtManager);
+            // Register types.
             container.RegisterType<ICustomerOrdersDatastore, CustomerOrdersDatastore>();
             config.DependencyResolver = new DatastoreResolver(container);
             // Create a JwtAuthentication attribute.

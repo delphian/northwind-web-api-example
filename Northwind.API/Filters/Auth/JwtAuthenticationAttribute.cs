@@ -27,8 +27,10 @@ namespace Northwind.API.Filters
                 return;
             }
 
+            var jwtManager = context.ActionContext.ControllerContext.Configuration.DependencyResolver.GetService(typeof(IJwtManager)) as JwtManager;
+
             var token = authorization.Parameter;
-            var principal = await AuthenticateJwtToken(token);
+            var principal = await AuthenticateJwtToken(token, jwtManager);
 
             if (principal == null)
                 context.ErrorResult = new AuthenticationFailureResult("Invalid token", request);
@@ -37,11 +39,11 @@ namespace Northwind.API.Filters
                 context.Principal = principal;
         }
 
-        private static bool ValidateToken(string token, out string username)
+        private static bool ValidateToken(string token, IJwtManager jwtManager, out string username)
         {
             username = null;
 
-            var simplePrinciple = JwtManager.GetPrincipal(token);
+            var simplePrinciple = jwtManager.GetPrincipal(token);
             var identity = simplePrinciple?.Identity as ClaimsIdentity;
 
             if (identity == null)
@@ -60,9 +62,9 @@ namespace Northwind.API.Filters
             return true;
         }
 
-        protected Task<IPrincipal> AuthenticateJwtToken(string token)
+        protected Task<IPrincipal> AuthenticateJwtToken(string token, IJwtManager jwtManager)
         {
-            if (ValidateToken(token, out var username))
+            if (ValidateToken(token, jwtManager, out var username))
             {
                 // based on username to get more information from database in order to build local identity
                 var claims = new List<Claim>

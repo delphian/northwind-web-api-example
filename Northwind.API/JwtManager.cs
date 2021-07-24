@@ -5,16 +5,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Northwind.API
 {
-    public static class JwtManager
+    /**
+     * Create and validate JSON web tokens
+     */
+    public class JwtManager : IJwtManager
     {
-        /// <summary>
-        /// Use the below code to generate symmetric Secret Key
-        ///     var hmac = new HMACSHA256();
-        ///     var key = Convert.ToBase64String(hmac.Key);
-        /// </summary>
-        private const string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
+        /// Generate new  secret: var hmac = new HMACSHA256(); var key = Convert.ToBase64String(hmac.Key);
+        private string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
 
-        public static string GenerateToken(string username, int expireMinutes = 20)
+        public string GenerateToken(string username, int expireMinutes = 20)
         {
             var symmetricKey = Convert.FromBase64String(Secret);
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -38,7 +37,7 @@ namespace Northwind.API
             return token;
         }
 
-        public static ClaimsPrincipal GetPrincipal(string token)
+        public ClaimsPrincipal GetPrincipal(string token)
         {
             try
             {

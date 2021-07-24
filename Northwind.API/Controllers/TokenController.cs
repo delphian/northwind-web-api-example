@@ -9,13 +9,20 @@ namespace Northwind.API.Controllers
 {
     public class TokenController : ApiController
     {
-        // THis is naive endpoint for demo, it should use Basic authentication to provide token or POST request
+        private readonly IJwtManager jwtManager;
+        /**
+         * Constructor for dependency injection.
+         */
+        public TokenController(IJwtManager jwtManager)
+        {
+            this.jwtManager = jwtManager;
+        }
         [AllowAnonymous]
         public string Get(string username, string password)
         {
             if (CheckUser(username, password))
             {
-                return JwtManager.GenerateToken(username);
+                return jwtManager.GenerateToken(username);
             }
 
             throw new HttpResponseException(HttpStatusCode.Unauthorized);

@@ -28,7 +28,7 @@ namespace Northwind.API.Controllers
         /**
          * Get a single company order
          */
-        [AllowAnonymous]
+        [JwtAuthentication]
         public CustomerOrder Get(int id)
         {
             var results = datastore.Read(new int[] { id }.ToList());
