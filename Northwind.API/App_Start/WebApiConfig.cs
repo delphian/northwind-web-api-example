@@ -1,6 +1,7 @@
 ﻿using Northwind.API;
 using Northwind.Datastore;
 using Northwind.Datastore.CustomerOrders;
+using Swashbuckle.Application;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,11 +19,10 @@ namespace Northwind.API
             var container = new UnityContainer();
             var datastoreConfig = new DatastoreConfig();
             var jwtManager = new JwtManager();
-
             // Read from config file.
-            datastoreConfig.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            datastoreConfig.ConnectionString = ConfigurationManager
+                .ConnectionStrings["DefaultConnection"].ConnectionString;
             jwtManager.SetSecret(ConfigurationManager.AppSettings["jwtSecret"]);
-
             // Register instances.
             container.RegisterInstance<IDatastoreConfig>(datastoreConfig);
             container.RegisterInstance<IJwtManager>(jwtManager);
@@ -40,8 +40,13 @@ namespace Northwind.API
                 defaults: new { id = RouteParameter.Optional }
             );
             // XML is a sin.
-            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes.FirstOrDefault(t => t.MediaType == "application/xml");
+            var appXmlType = config.Formatters.XmlFormatter.SupportedMediaTypes
+                .FirstOrDefault(t => t.MediaType == "application/xml");
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
+            // Swagger API documentation
+            config
+                .EnableSwagger(c => c.SingleApiVersion("v1", "Northwind API"))
+                .EnableSwaggerUi();
         }
     }
 }
