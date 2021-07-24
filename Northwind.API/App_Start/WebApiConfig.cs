@@ -19,7 +19,10 @@ namespace Northwind.API
             var datastoreConfig = new DatastoreConfig();
             var jwtManager = new JwtManager();
 
+            // Read from config file.
             datastoreConfig.ConnectionString = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            jwtManager.SetSecret(ConfigurationManager.AppSettings["jwtSecret"]);
+
             // Register instances.
             container.RegisterInstance<IDatastoreConfig>(datastoreConfig);
             container.RegisterInstance<IJwtManager>(jwtManager);

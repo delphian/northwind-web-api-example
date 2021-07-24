@@ -11,7 +11,15 @@ namespace Northwind.API
     public class JwtManager : IJwtManager
     {
         /// Generate new  secret: var hmac = new HMACSHA256(); var key = Convert.ToBase64String(hmac.Key);
-        private string Secret = "db3OIsj+BXE9NZDy0t8W3TcNekrF+2d/1sFnWG4HnV8TZY30iTOdtVWJG8abWvB1GlOgJuQZdcF2Luqm/hccMw==";
+        private string Secret = "";
+        /**
+         * Set the token secret. Once set, it may not be set again.
+         */
+        public void SetSecret(string secret)
+        {
+            if (this.Secret.Length == 0)
+                this.Secret = secret;
+        }
 
         public string GenerateToken(string username, int expireMinutes = 20)
         {
