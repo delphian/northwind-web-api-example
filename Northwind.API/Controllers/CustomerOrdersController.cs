@@ -12,33 +12,29 @@ using System.Web.Http;
 
 namespace Northwind.API.Controllers
 {
-    /**
-     * TODO : These should all be wrapped into a generic response object. Don't return raw arrays!
-     */
+    /// <summary>API for customer orders.</summary>
+    /// <remarks>
+    /// TODO : These should all be wrapped into a generic response object. Don't return raw arrays.
+    /// </remarks>
     public class CustomerOrdersController : ApiController
     {
         private readonly ICustomerOrdersDatastore datastore;
-        /**
-         * Constructor for dependency injection.
-         */
+        /// <summary>Constructor for dependency injection.</summary>
         public CustomerOrdersController(ICustomerOrdersDatastore customerOrdersDS)
         {
             this.datastore = customerOrdersDS;
         }
-        /**
-         * Get a single company order
-         */
+        /// <summary>Get a single company order.</summary>
         [JwtAuthentication]
         public CustomerOrder Get(int id)
         {
             var results = datastore.Read(new int[] { id }.ToList());
             return results.FirstOrDefault<CustomerOrder>();
         }
-        /**
-         * Get all company orders
-         * 
-         * TODO : Doesn't really fit into our url pattern, but use the required method name.
-         */
+        /// <summary>Get all orders of a company.</summary>
+        /// <remarks>
+        /// Doesn't fit into url pattern, but use the requested method name.
+        /// </remarks>
         [AllowAnonymous]
         [HttpGet, Route("api/GetCustomerOrders/{companyName}")]
         public List<CustomerOrder> GetCustomerOrders(string companyName)
@@ -46,31 +42,19 @@ namespace Northwind.API.Controllers
             var results = datastore.ReadByCompanyName(companyName);
             return results;
         }
-        /**
-         * Create a new customer order.
-         * 
-         * POST api/customerOrders
-         */
+        /// <summary>Create a new customer order.</summary>
         [JwtAuthentication]
         public void Post([FromBody] string value)
         {
             throw new NotImplementedException();
         }
-        /**
-         * Update an existing customer order.
-         * 
-         * PUT api/customerOrders/5
-         */
+        /// <summary>Update an existing customer order.</summary>
         [JwtAuthentication]
         public void Put(int id, [FromBody] string value)
         {
             throw new NotImplementedException();
         }
-        /**
-         * Delete a customer order.
-         * 
-         * DELETE api/customerOrders/5
-         */
+        /// <summary>Delete a customer order.</summary>
         [JwtAuthentication]
         public void Delete(int id)
         {

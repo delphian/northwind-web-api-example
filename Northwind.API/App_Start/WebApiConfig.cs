@@ -45,7 +45,12 @@ namespace Northwind.API
             config.Formatters.XmlFormatter.SupportedMediaTypes.Remove(appXmlType);
             // Swagger API documentation
             config
-                .EnableSwagger(c => c.SingleApiVersion("v1", "Northwind API"))
+                .EnableSwagger(c =>
+                {
+                    c.IncludeXmlComments(string.Format(@"{0}\bin\Northwind.API.XML",
+                        System.AppDomain.CurrentDomain.BaseDirectory));
+                    c.SingleApiVersion("v1", "Northwind API");
+                })
                 .EnableSwaggerUi();
         }
     }
